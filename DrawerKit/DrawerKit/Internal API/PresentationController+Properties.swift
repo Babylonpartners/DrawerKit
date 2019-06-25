@@ -84,6 +84,13 @@ extension PresentationController {
         set {
             let posY = min(max(newValue, drawerFullY), containerViewHeight)
             presentedView?.frame.origin.y = posY
+
+            if let backgroundView = backgroundView,
+                let handle = configuration.drawerBackgroundConfiguration?.handle {
+
+                let context = DrawerBackgroundConfiguration.HandleContext(currentY: posY, containerHeight: containerViewHeight)
+                handle(backgroundView, context)
+            }
         }
     }
 
